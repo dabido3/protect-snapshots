@@ -31,7 +31,7 @@ async def async_setup_entry(
         ProtectSnapshotImage(entry.entry_id, slot, camera_slug) for slot in SLOTS
     ]
     for entity in entities:
-        state["entities"][entity.unique_id] = entity
+        state["entities"][entity._slot] = entity
     async_add_entities(entities)
 
 
@@ -46,7 +46,7 @@ class ProtectSnapshotImage(Image):
         super().__init__("image/jpeg", b"")
         self._entry_id = entry_id
         self._slot = slot
-        self._attr_unique_id = f"{DOMAIN}_{camera_slug}_{slot}"
+        self._unique_id = f"{DOMAIN}_{camera_slug}_{slot}"
         self._attr_name = SLOT_NAMES[slot]
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, camera_slug)},
@@ -54,6 +54,11 @@ class ProtectSnapshotImage(Image):
             manufacturer="UniFi Protect",
         )
         self._attr_entity_picture = None
+
+    @property
+    def unique_id(self) -> str:
+        """Return the unique ID."""
+        return self._unique_id
 
     async def async_image(self) -> bytes | None:
         """Return the cached thumbnail bytes."""
