@@ -1,1 +1,14 @@
-{"codeowners":[],"config_flow":true,"dependencies":["unifiprotect"],"documentation":"https://github.com/dabido3/protect-snapshots","domain":"protect_snapshots","iot_class":"local_push","issue_tracker":"https://github.com/dabido3/protect-snapshots/issues","name":"Protect Snapshots","requirements":[],"version":"0.1.0"}
+{
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": [
+    "unifiprotect"
+  ],
+  "documentation": "https://github.com/dabido3/protect-snapshots",
+  "domain": "protect_snapshots",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/dabido3/protect-snapshots/issues",
+  "name": "Protect Snapshots",
+  "requirements": [],
+  "version": "0.1.1"
+}
