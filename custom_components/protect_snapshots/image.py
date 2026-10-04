@@ -4,7 +4,6 @@ from __future__ import annotations
 from homeassistant.components.image import Image
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import CONF_EVENT_ENTITY_ID, DOMAIN, SLOTS
@@ -38,8 +37,6 @@ async def async_setup_entry(
 class ProtectSnapshotImage(Image):
     """Image entity serving the latest cached Protect detection thumbnail."""
 
-    _attr_has_entity_name = True
-
     def __init__(self, entry_id: str, slot: str, camera_slug: str) -> None:
         # content_type/content are required by Image.__init__; actual bytes
         # come from async_image() below.
@@ -47,12 +44,7 @@ class ProtectSnapshotImage(Image):
         self._entry_id = entry_id
         self._slot = slot
         self._unique_id = f"{DOMAIN}_{camera_slug}_{slot}"
-        self._attr_name = SLOT_NAMES[slot]
-        self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, camera_slug)},
-            name=f"Protect Snapshots ({camera_slug.replace('_', ' ').title()})",
-            manufacturer="UniFi Protect",
-        )
+        self._attr_name = f"{camera_slug.replace('_', ' ').title()} {SLOT_NAMES[slot]}"
         self._attr_entity_picture = None
 
     @property
