@@ -47,7 +47,6 @@ class ProtectSnapshotImage(Image):
         self._entry_id = entry_id
         self._slot = slot
         self._attr_unique_id = f"{DOMAIN}_{camera_slug}_{slot}"
-        self._attr_translation_key = slot
         self._attr_name = SLOT_NAMES[slot]
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, camera_slug)},
