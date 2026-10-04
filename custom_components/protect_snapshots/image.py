@@ -41,7 +41,9 @@ class ProtectSnapshotImage(Image):
     _attr_has_entity_name = True
 
     def __init__(self, entry_id: str, slot: str, camera_slug: str) -> None:
-        super().__init__()
+        # content_type/content are required by Image.__init__; actual bytes
+        # come from async_image() below.
+        super().__init__("image/jpeg", b"")
         self._entry_id = entry_id
         self._slot = slot
         self._attr_unique_id = f"{DOMAIN}_{camera_slug}_{slot}"
